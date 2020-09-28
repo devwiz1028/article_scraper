@@ -8,11 +8,17 @@ This project extracts article url, combined with the article title, content, res
 The extracted data looks like this sample:
 
     {
-        'originalUrl': 'https://fool.com/retirement/plans/roth-401k/roth-401k-vs-roth-ira/',
-        'authorName': 'Christy Bieber',
-        'publishedDate': 'Sep 22, 2020',
-        'title': 'Roth IRA vs. Roth 401(k): Which Is Best for You?',
-        'content': 'Both the Roth 401(k) and the Roth IRA can help you reach your retirement goals. Each has its advantages and disadvantages.'
+	originalUrl         https://www.fool.com/investing/2020/09/28/ford...
+	url                 https://www.fool.com/investing/2020/09/28/ford...
+	title               Ford Reveals Plans to Build Electric Vehicles ...
+	content             Ford Motor Company (NYSE:F) has revealed plans...
+	authorName                                              John Rosevear
+	publishedDate                                    2020-09-28T18:47:00Z
+	harvestDate                                      2020-09-28T21:38:41Z
+	stockTicker                                                         F
+	duplicateGroupId                                 S-502351933235786277
+	index-date                                                 2020-09-28
+	languageCode                                                       en
     }
 
 
