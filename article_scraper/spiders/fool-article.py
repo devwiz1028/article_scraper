@@ -28,4 +28,4 @@ class FoolArticleSpider(scrapy.Spider):
             'duplicateGroupId' : 'S' + str(hash(response.url)), #signify it came from scrapy and not lexis
             'index-date' : response.xpath("//meta[@name='date']/@content").get()[:10],
             'languageCode' : response.xpath("/html/@lang").get()
-            }
+        }

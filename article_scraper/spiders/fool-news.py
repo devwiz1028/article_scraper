@@ -16,7 +16,7 @@ class FoolNewsSpider(scrapy.Spider):
         for quote in response.css(".recent-articles .article-listing .list-content a"):
             date_author = quote.css(".story-date-author::text").extract_first().split('|')
 
-            yield scrapy.Request('https://fool.com' + quote.attrib['href'],self.parse_article)
+            yield scrapy.Request('https://fool.com' + quote.attrib['href'], self.parse_article)
 
     def parse_article(self, response):
         yield {
@@ -31,4 +31,4 @@ class FoolNewsSpider(scrapy.Spider):
             'duplicateGroupId' : 'S' + str(hash(response.url)), #signify it came from scrapy and not lexis
             'index-date' : response.xpath("//meta[@name='date']/@content").get()[:10],
             'languageCode' : response.xpath("/html/@lang").get()
-            }
+        }
