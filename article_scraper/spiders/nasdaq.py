@@ -20,9 +20,12 @@ class NasdaqSpider(scrapy.Spider):
             'url' : response.url, #to match lexis format
             'title': response.css("h1.article-header__headline span::text").extract_first().strip(),
             'content': '\n'.join(map(lambda x: w3lib.html.remove_tags(x).strip(), response.css(".article-header + .body .body__content > :not(div)").extract())),
-            'authorName': response.css(".article-header__metadata .byline__author span.byline__name::text").extract_first().strip(),
+            'author': {'name': response.css(".article-header__metadata .byline__author span.byline__name::text").extract_first().strip()},
             'publishedDate': response.css(".article-header__metadata .timestamp time::text").extract_first().strip(),
+            'estimatedPublishedDate': response.css(".article-header__metadata .timestamp time::text").extract_first().strip(),
             'harvestDate': datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            'stockTicker': '',
+            'index-date': response.css(".article-header__metadata .timestamp time::text").extract_first().strip(),
             'duplicateGroupId' : 'S' + str(hash(response.url)), #signify it came from scrapy and not lexis
             'languageCode' : response.xpath("/html/@lang").get()
         }

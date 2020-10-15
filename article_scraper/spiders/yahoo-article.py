@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-
+import datetime
 
 class YahooArticleSpider(scrapy.Spider):
     name = "yahoo-article"
@@ -22,8 +22,15 @@ class YahooArticleSpider(scrapy.Spider):
         content = '\n'.join(map(lambda x: x.strip(), paragraphs))
         yield {
             'originalUrl': response.url,
-            'authorName': response.css(".caas-attr-meta::text").extract_first(),
-            'publishedDate': response.css("time.caas-attr-meta-time::text").extract_first(),
+            'url' : response.url, #to match lexis format
             'title': response.css(".caas-title-wrapper h1::text").extract_first(),
-            'content': content
+            'content': content,
+            'author': {'name': response.css(".caas-attr-meta::text").extract_first()},
+            'publishedDate': response.css("time.caas-attr-meta-time::text").extract_first(),
+            'estimatedPublishedDate': response.css("time.caas-attr-meta-time::text").extract_first(),
+            'harvestDate': datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            'stockTicker': '',
+            'index-date': response.css("time.caas-attr-meta-time::text").extract_first(),
+            'duplicateGroupId' : 'S' + str(hash(response.url)), #signify it came from scrapy and not lexis
+            'languageCode' : response.xpath("/html/@lang").get()
         }
