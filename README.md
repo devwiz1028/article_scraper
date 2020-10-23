@@ -43,3 +43,9 @@ You can run a spider using the `scrapy crawl` command, such as:
 If you want to save the scraped data to a file, you can pass the `-o` option:
     
     $ scrapy crawl fool-news -o news.csv
+
+google-news.sh is for fetching google search urls. You will need to update it to point the correct directory.
+
+If you want to run google-news.sh daily, run `crontab -e` and add
+
+	0 8 * * *	bash {YOUR_WORKING_DIR}/google-news.sh

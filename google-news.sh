@@ -1,9 +1,9 @@
 #!/bin/bash
-cd ~/Work/nobias/source/article_scraper
+cd {YOUR_WORKING_DIR}
 source .venv/bin/activate
-mkdir urls
-scrapy crawl google-news -a keyword="FB stock news" -o urls/facebook.csv
-scrapy crawl google-news -a keyword="GOOGL stock news" -o urls/google.csv
-scrapy crawl google-news -a keyword="AAPL stock news" -o urls/apple.csv
-scrapy crawl google-news -a keyword="AMZN stock news" -o urls/amazon.csv
-scrapy crawl google-news -a keyword="NFLX stock news" -o urls/netflix.csv
+mkdir {OUTPUT_DIR}
+scrapy crawl google-news -a keyword="FB stock news" -o {OUTPUT_DIR}/facebook.csv
+scrapy crawl google-news -a keyword="GOOGL stock news" -o {OUTPUT_DIR}/google.csv
+scrapy crawl google-news -a keyword="AAPL stock news" -o {OUTPUT_DIR}/apple.csv
+scrapy crawl google-news -a keyword="AMZN stock news" -o {OUTPUT_DIR}/amazon.csv
+scrapy crawl google-news -a keyword="NFLX stock news" -o {OUTPUT_DIR}/netflix.csv
