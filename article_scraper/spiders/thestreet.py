@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 import w3lib.html
+import datetime
 
 class TheStreetSpider(scrapy.Spider):
     name = "thestreet"
@@ -24,12 +25,16 @@ class TheStreetSpider(scrapy.Spider):
 
     def parse_article(self, response):
          yield {
-            'Article': response.css("header h1.m-detail-header--title::text").extract_first(),
+            'originalUrl': response.url,
             'url': response.url,
-            'Stock': response.css(".m-detail--body strong a::text").extract_first(),
-            'Author': response.css("a.m-detail-header--meta-author::text").extract_first(),
-            'Date': response.css(".m-detail-header--date time::text").extract_first(),
-            'Analyst Firm': '',
-            'Analyst name': '',
-            'Content': '\n'.join(map(lambda x: w3lib.html.remove_tags(x).strip(), response.css(".m-detail--body > p").extract()))
+            'title': response.css("header h1.m-detail-header--title::text").extract_first(),,
+            'content': '\n'.join(map(lambda x: w3lib.html.remove_tags(x).strip(), response.css(".m-detail--body > p").extract()))
+            'author': response.css("a.m-detail-header--meta-author::text").extract_first(),
+            'publishedDate': response.css(".m-detail-header--date time::text").extract_first(),
+            'estimatedPublishedDate': response.css(".m-detail-header--date time::text").extract_first(),
+            'harvestDate': datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            'stockTicker': response.css(".m-detail--body strong a::text").extract_first(),
+            'index-date': datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            'duplicateGroupId': 'S' + str(hash(response.url)),
+            'languageCode': response.xpath("/html/@lang").get()
         }
