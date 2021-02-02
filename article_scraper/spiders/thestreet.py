@@ -27,8 +27,8 @@ class TheStreetSpider(scrapy.Spider):
          yield {
             'originalUrl': response.url,
             'url': response.url,
-            'title': response.css("header h1.m-detail-header--title::text").extract_first(),,
-            'content': '\n'.join(map(lambda x: w3lib.html.remove_tags(x).strip(), response.css(".m-detail--body > p").extract()))
+            'title': response.css("header h1.m-detail-header--title::text").extract_first(),
+            'content': '\n'.join(map(lambda x: w3lib.html.remove_tags(x).strip(), response.css(".m-detail--body > p").extract())),
             'author': response.css("a.m-detail-header--meta-author::text").extract_first(),
             'publishedDate': response.css(".m-detail-header--date time::text").extract_first(),
             'estimatedPublishedDate': response.css(".m-detail-header--date time::text").extract_first(),
